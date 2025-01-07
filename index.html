@@ -19,13 +19,36 @@
         <h1>Our Brand New <br> website is on it's way</h1>
         <p>Subscribe for more details.</p>
 
-        <form action="">
+        <form name="submit-to-google-sheet">
 
             <input type="email" name="Email" placeholder="Your email id" required>
             <button type="submit"><img src="./sentButton.png" width="30px" alt=""></button>
         </form>
 
-        <span class="span">Thank You For Subscribing!</span>
+        <span class="span" id="msge"></span>
+
+        <script>
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbw7NwdUwsis1CMFECXDEQ_cb05T_EWvn6JBz_opqWjsc-aMSWwfBFCpZHngQbF-P5KZ/exec'
+            const form = document.forms['submit-to-google-sheet']
+
+            const msge = document.getElementById("msge");
+          
+            form.addEventListener('submit', e => {
+              e.preventDefault()
+              fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+                .then(response => {
+                    msge.innerHTML = "Thank You For Subscribing!"
+
+                    setTimeout(function(){
+
+                        msge.innerHTML = " "
+
+
+                    })
+                })
+                .catch(error => console.error('Error!', error.message))
+            })
+          </script>
 
     </div>
 </body>
